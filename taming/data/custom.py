@@ -2,6 +2,8 @@ import os
 import numpy as np
 import albumentations
 from torch.utils.data import Dataset
+from torchvision import transforms as T
+import h5py
 
 from taming.data.base import ImagePaths, NumpyPaths, ConcatDatasetWithIndex
 
