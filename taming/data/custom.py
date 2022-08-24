@@ -36,3 +36,32 @@ class CustomTest(CustomBase):
         self.data = ImagePaths(paths=paths, size=size, random_crop=False)
 
 
+class TextImageDatasetFashionGen(Dataset):
+    def __init__(self, h5filepath, image_size = 256, split="train"):
+        super().__init__()
+        self.file_h5 = h5py.File(h5filepath, mode='r')
+        
+        if split == "train":
+          self.image_transform = T.Compose([
+              T.ToPILImage(),
+              T.RandomResizedCrop(image_size, scale = (0.75, 1.), ratio = (1., 1.)),
+              T.RandomHorizontalFlip(p=0.3),
+              T.ColorJitter(brightness=0.025, hue=0.0, contrast=0.025, saturation=0.2),
+          ])
+        else:
+          self.image_transform = T.Compose([
+            T.ToPILImage(),
+            T.Resize(image_size),
+          ])
+
+    def __len__(self):
+        return len(self.file_h5['input_image'])
+
+    def __getitem__(self, ind):
+        data = dict()
+        image = self.file_h5['input_image'][ind]
+        image = self.image_transform(image)
+        image = (np.array(image)/127.5 - 1.0).astype(np.float32)
+        data["image"] = image
+
+        return data
