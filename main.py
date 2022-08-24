@@ -103,6 +103,13 @@ def get_parser(**parser_kwargs):
         default="",
         help="post-postfix for default name",
     )
+    parser.add_argument(
+        "-w",
+        "--log_wandb",
+        default="all",
+        help="'all' logs all models steps during training, True logs after validation, False doesnt log model",
+    )
+
 
     return parser
 
@@ -451,6 +458,7 @@ if __name__ == "__main__":
                     "save_dir": logdir,
                     "offline": opt.debug,
                     "id": nowname,
+                    "log_model" : opt.log_wandb
                 }
             },
             "testtube": {
