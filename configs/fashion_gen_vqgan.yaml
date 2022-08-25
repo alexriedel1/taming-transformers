@@ -32,9 +32,11 @@ data:
     num_workers: 0
     train:
       target: taming.data.custom.TextImageDatasetFashionGen
+      params:
         h5filepath: /content/fashiongen_256_256_train.h5
         image_size: 256
     validation:
       target: taming.data.custom.TextImageDatasetFashionGen
+      params:
         h5filepath: /content/fashiongen_256_256_validation.h5
         image_size: 256
