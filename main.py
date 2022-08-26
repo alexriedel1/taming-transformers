@@ -483,7 +483,7 @@ if __name__ == "__main__":
                 "filename": "{epoch:06}",
                 "verbose": True,
                 "save_last": True,
-                "every_n_train_steps ": 20000
+                "every_n_train_steps": 20000
             }
         }
         if hasattr(model, "monitor"):
