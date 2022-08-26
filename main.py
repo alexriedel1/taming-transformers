@@ -458,7 +458,7 @@ if __name__ == "__main__":
                     "save_dir": logdir,
                     "offline": opt.debug,
                     "id": nowname,
-                    "log_model" : opt.log_wandb
+                    "log_model" : "all"
                 }
             },
             "testtube": {
