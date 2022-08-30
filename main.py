@@ -492,7 +492,7 @@ if __name__ == "__main__":
 
         modelckpt_cfg = lightning_config.modelcheckpoint or OmegaConf.create()
         modelckpt_cfg = OmegaConf.merge(default_modelckpt_cfg, modelckpt_cfg)
-        trainer_kwargs["checkpoint_callback"] = instantiate_from_config(modelckpt_cfg)
+        #trainer_kwargs["checkpoint_callback"] = instantiate_from_config(modelckpt_cfg)
 
         # add callback which sets up log directory
         default_callbacks_cfg = {
@@ -530,7 +530,7 @@ if __name__ == "__main__":
         trainer_kwargs["callbacks"] = [instantiate_from_config(callbacks_cfg[k]) for k in callbacks_cfg]
         #trainer_kwargs["log_every_n_steps"] = 1
         #attrs = vars(trainer_kwargs["checkpoint_callback"])
-        print(', '.join("%s: %s" % item for item in attrs.items()))
+        #print(', '.join("%s: %s" % item for item in attrs.items()))
 
         trainer = Trainer.from_argparse_args(trainer_opt, **trainer_kwargs)
 
