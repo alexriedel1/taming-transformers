@@ -481,8 +481,8 @@ if __name__ == "__main__":
                 "dirpath": ckptdir,
                 "filename": "{epoch:06}",
                 "verbose": True,
-                "save_last": True,
-                "every_n_train_steps": 15
+                #"save_last": True,
+                #"every_n_train_steps": 15
             }
         }
         if hasattr(model, "monitor"):
