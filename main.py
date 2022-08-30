@@ -482,7 +482,7 @@ if __name__ == "__main__":
                 "filename": "{epoch:06}",
                 "verbose": True,
                 #"save_last": True,
-                #"every_n_train_steps": 15
+                "every_n_train_steps": 15
             }
         }
         if hasattr(model, "monitor"):
@@ -527,6 +527,8 @@ if __name__ == "__main__":
         callbacks_cfg = lightning_config.callbacks or OmegaConf.create()
         callbacks_cfg = OmegaConf.merge(default_callbacks_cfg, callbacks_cfg)
         trainer_kwargs["callbacks"] = [instantiate_from_config(callbacks_cfg[k]) for k in callbacks_cfg]
+        trainer_kwargs["log_every_n_steps"] = 1
+        print(trainer_kwargs)
 
         trainer = Trainer.from_argparse_args(trainer_opt, **trainer_kwargs)
 
