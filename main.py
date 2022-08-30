@@ -11,6 +11,7 @@ from pytorch_lightning.trainer import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint, Callback, LearningRateMonitor
 from pytorch_lightning.utilities.distributed import rank_zero_only
 import wandb
+from datetime import timedelta
 
 from taming.data.utils import custom_collate
 
@@ -458,7 +459,6 @@ if __name__ == "__main__":
                     "save_dir": logdir,
                     "offline": opt.debug,
                     "id": nowname,
-                    "log_model" : "all"
                 }
             },
             "testtube": {
@@ -483,7 +483,8 @@ if __name__ == "__main__":
                 "filename": "{epoch:06}",
                 "verbose": True,
                 "save_last": True,
-                "every_n_train_steps": 20000
+                "train_time_interval": timedelta(minutes=10)
+                #"every_n_train_steps": 20000
             }
         }
         if hasattr(model, "monitor"):
