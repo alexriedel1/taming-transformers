@@ -476,6 +476,7 @@ if __name__ == "__main__":
         # modelcheckpoint - use TrainResult/EvalResult(checkpoint_on=metric) to
         # specify which metric is used to determine best models
         default_modelckpt_cfg = {
+          "model_checkpoint": {
             "target": "pytorch_lightning.callbacks.ModelCheckpoint",
             "params": {
                 "dirpath": ckptdir,
@@ -484,6 +485,7 @@ if __name__ == "__main__":
                 #"save_last": True,
                 "every_n_train_steps": 15
             }
+          }
         }
         if hasattr(model, "monitor"):
             print(f"Monitoring {model.monitor} as checkpoint metric.")
@@ -526,7 +528,8 @@ if __name__ == "__main__":
         }
         callbacks_cfg = lightning_config.callbacks or OmegaConf.create()
         callbacks_cfg = OmegaConf.merge(default_callbacks_cfg, callbacks_cfg)
-        callbacks_cfg = OmegaConf.merge(modelckpt_cfg, callbacks_cfg)
+        callbacks_cfg = OmegaConf.merge(default_modelckpt_cfg, callbacks_cfg)
+        print(callbacks_cfg)
         trainer_kwargs["callbacks"] = [instantiate_from_config(callbacks_cfg[k]) for k in callbacks_cfg]
         #trainer_kwargs["log_every_n_steps"] = 1
         #attrs = vars(trainer_kwargs["checkpoint_callback"])
